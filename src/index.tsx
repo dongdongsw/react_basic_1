@@ -3,13 +3,23 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import App1 from './components/App1';
+import App2 from './components/App2';
+import App3 from './components/App3';
+import App4 from './components/App4';
+import FoodList from "./components/FoodList";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    {/*<App />*/}
+      {/*<App1/>*/}
+      {/*<App2/>*/}
+      {/*<App3/>*/}
+      {/*<App4/>*/}
+      <FoodList/>
   </React.StrictMode>
 );
 
