@@ -1,34 +1,25 @@
-import {useState, useEffect} from "react";
-import axios from "axios";
-
-// VO
-interface Food {
-    fno:number;
-    name:string;
-    poster:string;
-
-}
-// Map에 등록한 내용과 일치
-interface FoodListProps {
-    curpage:number;
-    totalpage:number;
-    startPage:number;
-    endPage:number;
-    list:Food[];
-}
-
-// useEffect() = rendering = setXxx() = return을 rendering 후 전송
-function FoodList() {
+import {useState, useEffect} from 'react';
+import axios from 'axios';
+import {Recipe,RecipeProps} from "../types";
+/*
+    필요한 interface / axios (공통으로 사용)
+    -------------------------------------
+    | tanStackQuery
+    | bootstrap => react용 <Pagination total="100" rownum="12">
+ */
+function RecipeList() {
     const [curpage, setCurpage] = useState<number>(1);
-    const [data, setData] = useState<FoodListProps>();
+    const [data, setData] = useState<RecipeProps>();
 
     useEffect(() => {
-        axios.get(`http://localhost/food/list_react/${curpage}`)
-        .then(res =>{
+        axios.get(`http://localhost/recipe/list_react/${curpage}`)
+        .then((res) => {
             console.log(res.data);
             setData(res.data);
+
         })
-    }, [curpage]); // 재호출 [] : mounted(), [변수] -> 재호출
+
+    }, [curpage]);
 
     const prev=():void =>{
         if(data){
@@ -67,13 +58,15 @@ function FoodList() {
         )
     }
 
-    const html:any=data?.list.map((food:Food)=>
+    const html:any=data?.list.map((recipe:Recipe)=>
         <div className="col-md-3">
             <div className="thumbnail">
                 <a href="#">
-                    <img src={food.poster} alt="Lights" style={{"width":"100%","height":"150px"}} />
+                    <img src={recipe.poster} alt="Lights" style={{"width":"100%","height":"150px"}}
+                        title={recipe.title}
+                    />
                     <div className="caption">
-                        <p>{food.name}</p>
+                        <p>{recipe.chef}</p>
                     </div>
                 </a>
             </div>
@@ -100,4 +93,4 @@ function FoodList() {
     )
 }
 
-export default FoodList;
+export default RecipeList;
